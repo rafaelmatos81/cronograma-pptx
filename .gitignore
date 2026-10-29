@@ -1,0 +1,7 @@
+node_modules/
+dist/
+testes/dados/
+testes/saida/
+*.xlsx
+*.xlsm
+*.mpp

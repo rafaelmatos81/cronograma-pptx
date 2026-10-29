@@ -1,0 +1,145 @@
+:root {
+  --fundo: #ffffff;
+  --superficie: #f5f6f7;
+  --borda: #dfe2e6;
+  --texto: #1b2430;
+  --texto-2: #5b6470;
+  --acento: #09182b;
+  --acento-texto: #ffffff;
+  --destaque: #d51d07;
+  --foco: #2f6fdd;
+  --raio: 4px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fundo: #1f1f1f;
+    --superficie: #2a2a2a;
+    --borda: #3d3d3d;
+    --texto: #ececec;
+    --texto-2: #a8adb3;
+    --acento: #e8ecf1;
+    --acento-texto: #0b1420;
+    --destaque: #ff6a55;
+  }
+}
+:root[data-theme="dark"] {
+  --fundo: #1f1f1f;
+  --superficie: #2a2a2a;
+  --borda: #3d3d3d;
+  --texto: #ececec;
+  --texto-2: #a8adb3;
+  --acento: #e8ecf1;
+  --acento-texto: #0b1420;
+  --destaque: #ff6a55;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; overflow-x: hidden; }
+body {
+  background: var(--fundo);
+  color: var(--texto);
+  font: 13px/1.4 "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+
+.topo { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 6px; }
+.marca { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; }
+.marca svg { width: 20px; height: 20px; fill: var(--destaque); }
+.ambiente { font-size: 11px; color: var(--texto-2); }
+
+.faixa {
+  margin: 0 14px 8px; padding: 8px 10px; border-radius: var(--raio);
+  background: var(--superficie); border: 1px solid var(--borda);
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 12px;
+}
+.faixa span { flex: 1; min-width: 140px; }
+
+.previa { padding: 0 14px; }
+.previa-svg {
+  border: 1px solid var(--borda); border-radius: var(--raio); background: #fff;
+  aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.previa-svg svg { width: 100%; height: 100%; display: block; }
+.previa-svg .vazio { color: #8a9099; font-size: 12px; padding: 12px; text-align: center; }
+.previa-rodape { display: flex; align-items: center; gap: 6px; padding: 6px 0 2px; font-size: 12px; color: var(--texto-2); }
+.previa-rodape .resumo { margin-left: auto; text-align: right; }
+
+.abas { display: flex; gap: 2px; padding: 8px 14px 0; border-bottom: 1px solid var(--borda); position: sticky; top: 0; background: var(--fundo); z-index: 2; }
+.abas button {
+  border: 0; background: none; padding: 8px 8px 7px; cursor: pointer; color: var(--texto-2);
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.abas button.ativa { color: var(--texto); border-bottom-color: var(--destaque); font-weight: 600; }
+
+main { flex: 1; padding: 10px 14px 16px; }
+main section { display: flex; flex-direction: column; gap: 8px; }
+h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--texto-2); margin: 10px 0 0; display: flex; justify-content: space-between; align-items: center; }
+
+.campo { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.campo label, .rotulo { font-size: 12px; color: var(--texto-2); }
+.campo-duplo { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+input[type="text"], input[type="number"], input[type="date"], input[type="search"], select, textarea {
+  width: 100%; padding: 5px 7px; border: 1px solid var(--borda); border-radius: var(--raio); background: var(--fundo);
+}
+textarea { resize: vertical; font-size: 12px; }
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible { outline: 2px solid var(--foco); outline-offset: 1px; }
+
+.botao {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 6px 12px; border: 1px solid var(--borda); border-radius: var(--raio);
+  background: var(--fundo); cursor: pointer; white-space: nowrap;
+}
+.botao:hover { background: var(--superficie); }
+.botao.primario { background: var(--acento); color: var(--acento-texto); border-color: var(--acento); }
+.botao.primario:hover { opacity: 0.9; }
+.botao:disabled { opacity: 0.45; cursor: default; }
+.botao.largo { flex: 1; }
+.link { border: 0; background: none; color: var(--foco); cursor: pointer; padding: 0; font-size: 12px; text-transform: none; letter-spacing: 0; }
+.icone { border: 1px solid var(--borda); background: var(--fundo); border-radius: var(--raio); width: 26px; height: 24px; cursor: pointer; line-height: 1; }
+.linha-botoes { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.linha-botoes input[type="date"] { flex: 1; width: auto; }
+
+.dica { font-size: 12px; color: var(--texto-2); margin: 0; }
+details summary { cursor: pointer; font-size: 12px; color: var(--texto-2); }
+details[open] { display: flex; flex-direction: column; gap: 6px; }
+
+.marcar { display: flex; align-items: center; gap: 7px; cursor: pointer; }
+.marcar input { margin: 0; }
+
+.segmentado { display: flex; border: 1px solid var(--borda); border-radius: var(--raio); overflow: hidden; }
+.segmentado label { flex: 1; text-align: center; padding: 5px 0; cursor: pointer; font-size: 12px; color: var(--texto); }
+.segmentado input { position: absolute; opacity: 0; pointer-events: none; }
+.segmentado label:has(input:checked) { background: var(--acento); color: var(--acento-texto); }
+.segmentado label:has(input:focus-visible) { outline: 2px solid var(--foco); outline-offset: -2px; }
+
+.lista-marcar {
+  border: 1px solid var(--borda); border-radius: var(--raio); max-height: 180px; overflow: auto;
+  padding: 4px 0; display: flex; flex-direction: column;
+}
+.lista-marcar.alta { max-height: 52vh; }
+.lista-marcar label { display: flex; gap: 7px; align-items: center; padding: 3px 8px; cursor: pointer; font-size: 12px; }
+.lista-marcar label:hover { background: var(--superficie); }
+.lista-marcar label span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lista-marcar label small { color: var(--texto-2); margin-left: auto; padding-left: 6px; white-space: nowrap; }
+.lista-marcar .vazio { padding: 6px 8px; color: var(--texto-2); font-size: 12px; }
+
+.grade-colunas { display: grid; grid-template-columns: auto 1fr; gap: 5px 8px; align-items: center; }
+.grade-colunas label { font-size: 12px; color: var(--texto-2); }
+.grade-colunas label.obrigatorio::after { content: " *"; color: var(--destaque); }
+.resumo-dados { font-size: 12px; margin: 4px 0 0; }
+
+.cores { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; }
+.cores label { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--texto-2); }
+.cores input { width: 34px; height: 22px; padding: 0; border: 1px solid var(--borda); border-radius: var(--raio); background: none; }
+
+.rodape {
+  position: sticky; bottom: 0; background: var(--fundo); border-top: 1px solid var(--borda);
+  padding: 8px 14px 12px; display: flex; flex-direction: column; gap: 6px;
+}
+.mensagem { margin: 0; font-size: 12px; min-height: 1em; color: var(--texto-2); }
+.mensagem.erro { color: var(--destaque); }
+.mensagem.ok { color: #2e7d32; }

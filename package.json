@@ -1,0 +1,26 @@
+{
+  "name": "cronograma-pptx",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Suplemento do PowerPoint que gera Gantt e linha do tempo editáveis a partir de Excel, CSV ou MS Project XML",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run",
+    "certificado": "office-addin-dev-certs install",
+    "manifesto": "node scripts/manifesto.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/office-js": "^1.0.614",
+    "happy-dom": "^21.0.4",
+    "office-addin-dev-certs": "^3.0.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  },
+  "dependencies": {
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  }
+}
