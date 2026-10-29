@@ -5,3 +5,4 @@ testes/saida/
 *.xlsx
 *.xlsm
 *.mpp
+.DS_Store

@@ -9,7 +9,8 @@
     "build": "tsc --noEmit && vite build",
     "test": "vitest run",
     "certificado": "office-addin-dev-certs install",
-    "manifesto": "node scripts/manifesto.mjs"
+    "manifesto": "node scripts/manifesto.mjs",
+    "publicar": "sh scripts/publicar.sh"
   },
   "devDependencies": {
     "@types/node": "^26.6.6",

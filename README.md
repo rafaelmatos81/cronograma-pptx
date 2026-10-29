@@ -69,4 +69,4 @@ src/powerpoint.ts   desenho, agrupamento, gravação e atualização no PowerPoi
 src/painel.ts       painel lateral
 ```
 
-Cada push em `main` roda os testes, gera o build e publica no GitHub Pages.
+`npm run publicar` roda os testes, gera o build e publica no GitHub Pages (branch gh-pages).
