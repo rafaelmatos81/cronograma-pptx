@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cronograma</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <link rel="icon" href="./icones/icone-32.png" />
+  <script type="module" crossorigin src="./assets/index-CDFTLWIn.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CopDANLh.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="marca">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="11" height="4" rx="1"/><rect x="7" y="10" width="13" height="4" rx="1"/><rect x="5" y="16" width="8" height="4" rx="1"/></svg>
+      <span>Cronograma</span>
+    </div>
+    <span id="ambiente" class="ambiente"></span>
+  </header>
+
+  <div id="faixa-edicao" class="faixa" hidden>
+    <span id="faixa-texto"></span>
+    <button id="btn-editar" class="link">Editar</button>
+    <button id="btn-cancelar-edicao" class="link" hidden>Sair da edição</button>
+  </div>
+
+  <section class="previa">
+    <div id="previa-svg" class="previa-svg"><p class="vazio">Abra um cronograma ou use o exemplo.</p></div>
+    <div class="previa-rodape">
+      <button id="pag-ant" class="icone" aria-label="Página anterior">‹</button>
+      <span id="pag-txt">—</span>
+      <button id="pag-prox" class="icone" aria-label="Próxima página">›</button>
+      <span id="previa-resumo" class="resumo"></span>
+    </div>
+  </section>
+
+  <nav class="abas" role="tablist">
+    <button role="tab" data-aba="dados" class="ativa">Dados</button>
+    <button role="tab" data-aba="visao">Visão</button>
+    <button role="tab" data-aba="tarefas">Tarefas</button>
+    <button role="tab" data-aba="aparencia">Aparência</button>
+  </nav>
+
+  <main>
+    <!-- DADOS -->
+    <section data-painel="dados">
+      <div class="linha-botoes">
+        <label class="botao primario">Abrir arquivo<input id="arquivo" type="file" accept=".xlsx,.xlsm,.xls,.csv,.txt,.xml,.mpp" hidden /></label>
+        <button id="btn-exemplo" class="botao">Usar exemplo</button>
+      </div>
+      <p class="dica">Excel ou CSV exportado do MS Project, ou XML do Project (Arquivo › Salvar como › XML).</p>
+      <details>
+        <summary>Colar do Excel</summary>
+        <textarea id="colar" rows="5" placeholder="Copie as linhas no Excel (com o cabeçalho) e cole aqui"></textarea>
+        <button id="btn-colar" class="botao">Usar dados colados</button>
+      </details>
+      <div id="bloco-aba" class="campo" hidden>
+        <label for="aba">Aba</label>
+        <select id="aba"></select>
+      </div>
+      <div id="bloco-colunas" hidden>
+        <h3>Colunas reconhecidas</h3>
+        <div id="colunas" class="grade-colunas"></div>
+      </div>
+      <p id="resumo-dados" class="resumo-dados"></p>
+    </section>
+
+    <!-- VISÃO -->
+    <section data-painel="visao" hidden>
+      <div class="campo">
+        <span class="rotulo">Formato</span>
+        <div class="segmentado">
+          <label><input type="radio" name="modo" value="lista" checked />Lista</label>
+          <label><input type="radio" name="modo" value="faixas" />Faixas</label>
+        </div>
+      </div>
+      <div class="campo-duplo">
+        <div class="campo"><label for="nivel-min">Do nível</label><select id="nivel-min"></select></div>
+        <div class="campo"><label for="nivel-max">até o nível</label><select id="nivel-max"></select></div>
+      </div>
+      <div class="campo" id="bloco-agrupar" hidden><label for="agrupar">Faixas pelo nível</label><select id="agrupar"></select></div>
+
+      <h3>Ramos <button id="ramos-todos" class="link">todos</button></h3>
+      <div id="ramos" class="lista-marcar"></div>
+
+      <h3>Filtros</h3>
+      <label class="marcar"><input type="checkbox" id="f-marcos" />Só marcos</label>
+      <label class="marcar"><input type="checkbox" id="f-criticas" />Só caminho crítico</label>
+      <label class="marcar"><input type="checkbox" id="f-andamento" />Só em andamento</label>
+      <label class="marcar"><input type="checkbox" id="f-pendentes" />Só não concluídas</label>
+      <div class="campo"><label for="f-desvio">Atraso mínimo (dias)</label><input id="f-desvio" type="number" placeholder="sem filtro" /></div>
+      <div class="campo"><label for="f-busca">Nome contém</label><input id="f-busca" type="text" placeholder="ex.: elétrica; hidráulica" /></div>
+      <div class="campo-duplo">
+        <div class="campo"><label for="f-de">Período de</label><input id="f-de" type="date" /></div>
+        <div class="campo"><label for="f-ate">até</label><input id="f-ate" type="date" /></div>
+      </div>
+      <label class="marcar"><input type="checkbox" id="f-hierarquia" checked />Manter os grupos-pai como contexto</label>
+
+      <h3>Título do slide</h3>
+      <label class="marcar"><input type="checkbox" id="preencher-titulo" checked />Preencher o título do slide</label>
+      <input id="titulo" type="text" placeholder="Automático" />
+    </section>
+
+    <!-- TAREFAS -->
+    <section data-painel="tarefas" hidden>
+      <p class="dica">Desmarque para esconder uma tarefa (e as filhas dela) deste cronograma.</p>
+      <input id="tarefas-busca" type="search" placeholder="Procurar tarefa" />
+      <div id="tarefas" class="lista-marcar alta"></div>
+      <button id="mostrar-ocultas" class="link" hidden></button>
+    </section>
+
+    <!-- APARÊNCIA -->
+    <section data-painel="aparencia" hidden>
+      <div class="campo">
+        <label for="status">Data de status</label>
+        <div class="linha-botoes"><input id="status" type="date" /><button id="status-hoje" class="botao">Hoje</button></div>
+      </div>
+      <h3>Mostrar</h3>
+      <label class="marcar"><input type="checkbox" id="a-lb" checked />Linha de base</label>
+      <label class="marcar"><input type="checkbox" id="a-desvio" checked />Coluna de desvio</label>
+      <label class="marcar"><input type="checkbox" id="a-pct" checked />Coluna de % concluída</label>
+      <label class="marcar"><input type="checkbox" id="a-termino" checked />Coluna de término</label>
+      <label class="marcar"><input type="checkbox" id="a-criticas" checked />Caminho crítico em destaque</label>
+      <label class="marcar"><input type="checkbox" id="a-vinculos" />Vínculos entre tarefas</label>
+      <label class="marcar"><input type="checkbox" id="a-legenda" checked />Legenda</label>
+      <label class="marcar"><input type="checkbox" id="a-umdia" />Tarefa de 1 dia como marco</label>
+
+      <h3>Layout</h3>
+      <div class="campo-duplo">
+        <div class="campo"><label for="escala">Escala</label>
+          <select id="escala"><option value="auto">Automática</option><option value="semana">Semanas</option><option value="mes">Meses</option><option value="trimestre">Trimestres</option></select></div>
+        <div class="campo"><label for="linhas">Linhas por slide</label><input id="linhas" type="number" min="3" max="40" value="18" /></div>
+      </div>
+      <div class="campo"><label for="largura">Largura dos nomes</label><input id="largura" type="range" min="0.15" max="0.5" step="0.01" value="0.31" /></div>
+
+      <h3>Cores e fonte</h3>
+      <div class="campo"><label for="paleta">Paleta</label><select id="paleta"></select></div>
+      <div class="cores">
+        <label>Principal<input type="color" id="c-principal" /></label>
+        <label>A executar<input type="color" id="c-aexecutar" /></label>
+        <label>Destaque<input type="color" id="c-destaque" /></label>
+        <label>Linha de base<input type="color" id="c-lb" /></label>
+      </div>
+      <div class="campo"><label for="fonte">Fonte</label>
+        <select id="fonte"><option>Manrope</option><option>Aptos</option><option>Calibri</option><option>Arial</option><option>Segoe UI</option><option>Helvetica Neue</option></select></div>
+
+      <h3>Posição no slide</h3>
+      <p class="dica">Para escolher onde o cronograma entra, desenhe um retângulo no slide, selecione-o e clique abaixo. O retângulo é substituído pelo cronograma.</p>
+      <div class="linha-botoes">
+        <button id="area-selecao" class="botao">Usar forma selecionada</button>
+        <button id="area-padrao" class="link" hidden>Voltar ao padrão</button>
+      </div>
+      <p id="area-txt" class="dica"></p>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p id="mensagem" class="mensagem" role="status"></p>
+    <div class="linha-botoes">
+      <button id="btn-inserir" class="botao primario largo" disabled>Inserir no slide</button>
+      <button id="btn-atualizar" class="botao primario largo" hidden>Atualizar cronograma</button>
+      <button id="btn-inserir-novo" class="botao" hidden>Inserir como novo</button>
+    </div>
+  </footer>
+
+</body>
+</html>
